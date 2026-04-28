@@ -1,0 +1,433 @@
+<div class="page-shell">
+      <header class="hero">
+        <div class="hero-topbar">
+          <p class="eyebrow">Phase 5 Quality Upgrade</p>
+          <p class="eyebrow">Media Voting</p>
+          <div class="hero-actions">
+            <span id="backend-pill" class="pill">Local votes</span>
+            <span id="social-pill" class="pill muted-pill">Smart feed ready</span>
+            <button id="theme-toggle" class="ghost-button" type="button" aria-pressed="false">
+              Dark mode
+            </button>
+            <button id="motion-toggle" class="ghost-button" type="button" aria-pressed="false">
+              Reduce motion
+            </button>
+            <button id="contrast-toggle" class="ghost-button" type="button" aria-pressed="false">
+              High contrast
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-grid">
+          <div>
+            <h1>Make the platform feel smarter, not heavier.</h1>
+            <p class="hero-copy">
+              Phase 5 hardens the experience with accessibility upgrades, safer community tools,
+              local analytics, and simple reliability checks so the app feels better to use every day.
+            </p>
+            <div class="hero-badges">
+              <span>Accessibility</span>
+              <span>Moderation</span>
+              <span>Health Checks</span>
+              <span>Data Export</span>
+              <span>Free Only</span>
+            </div>
+            <h1>Search. Vote. Rank.</h1>
+            <p class="hero-copy">Find manga and movies, vote once, and watch the leaderboard update.</p>
+          </div>
+
+          <aside class="hero-note">
+            <h2>What users get in Phase 5</h2>
+            <h2>Simple by design</h2>
+            <ul>
+              <li>Comfort controls for motion and contrast plus keyboard-friendly navigation.</li>
+              <li>Safer comments with local moderation checks and reporting tools.</li>
+              <li>A quality dashboard that explains app status, usage, and free-mode health.</li>
+              <li>Backup and reset tools so users stay in control of their own data.</li>
+              <li>Fast search.</li>
+              <li>One-click voting.</li>
+              <li>A live leaderboard.</li>
+            </ul>
+          </aside>
+        </div>
+      </header>
+
+      <main id="main-content" class="app-shell">
+        <section class="overview-grid">
+        <section>
+          <article class="panel spotlight">
+            <div class="section-heading">
+              <p class="section-kicker">Leaderboard</p>
+              <h2>Top voted picks</h2>
+              <h2>Top picks</h2>
+            </div>
+
+            <div class="leaderboard-filters" role="tablist" aria-label="Leaderboard filter">
+
+            <div id="leaderboard" class="leaderboard-list"></div>
+          </article>
+
+          <article class="panel utility-panel">
+            <div class="section-heading">
+              <p class="section-kicker">Your space</p>
+              <h2>Profile and quick actions</h2>
+            </div>
+
+            <div class="profile-card">
+              <div class="profile-avatar" id="profile-avatar">MV</div>
+              <div class="profile-copy">
+                <strong id="profile-name-display">Guest User</strong>
+                <p id="profile-bio-display">Set a name and short vibe for your profile.</p>
+              </div>
+            </div>
+
+            <div class="profile-form">
+              <label class="input-stack">
+                <span>Display name</span>
+                <input id="profile-name-input" type="text" maxlength="24" placeholder="Guest User" />
+              </label>
+              <label class="input-stack">
+                <span>Short bio</span>
+                <input id="profile-bio-input" type="text" maxlength="80" placeholder="Movie lover, manga reader, ranking chaos agent..." />
+              </label>
+              <button id="save-profile-button" class="secondary-button" type="button">
+                Save profile
+              </button>
+            </div>
+
+            <div class="quick-stats">
+              <article class="stat-card">
+                <span class="stat-label">Favorites</span>
+                <strong id="favorites-count">0</strong>
+              </article>
+              <article class="stat-card">
+                <span class="stat-label">Recent searches</span>
+                <strong id="recent-count">0</strong>
+              </article>
+              <article class="stat-card">
+                <span class="stat-label">Comments</span>
+                <strong id="comments-count">0</strong>
+              </article>
+            </div>
+
+            <div class="chip-block">
+              <div class="block-head">
+                <strong>Discovery snapshot</strong>
+              </div>
+              <div id="discovery-highlights" class="chip-list"></div>
+            </div>
+
+            <div class="chip-block">
+              <div class="block-head">
+                <strong>Recent searches</strong>
+                <button id="clear-recent-searches" class="inline-button" type="button">
+                  Clear
+                </button>
+              </div>
+              <div id="recent-searches-global" class="chip-list"></div>
+            </div>
+
+            <div class="chip-block">
+              <div class="block-head">
+                <strong>Favorites</strong>
+                <button id="view-favorites-button" class="inline-button" type="button">
+                  Jump to favorites
+                </button>
+              </div>
+              <div id="favorites-preview" class="chip-list"></div>
+            </div>
+
+            <p id="setup-status" class="setup-status">
+              Movie search and shared votes activate automatically when free credentials are present.
+            </p>
+          </article>
+        </section>
+
+        <section class="personalization-grid">
+          <article class="panel taste-panel">
+            <div class="section-heading">
+              <p class="section-kicker">Taste profile</p>
+              <h2>Your strongest signals</h2>
+            </div>
+            <div id="taste-summary" class="chip-list"></div>
+          </article>
+
+          <article class="panel recommend-panel">
+            <div class="section-heading">
+              <p class="section-kicker">Recommendations</p>
+              <h2>Because you liked...</h2>
+            </div>
+            <div id="recommendation-chips" class="chip-list"></div>
+          </article>
+        </section>
+
+        <section class="social-grid">
+          <article class="panel activity-panel">
+            <div class="section-heading">
+              <p class="section-kicker">Activity</p>
+              <h2>Your feed</h2>
+            </div>
+            <div id="activity-feed" class="activity-feed"></div>
+          </article>
+
+          <article class="panel social-status-panel">
+            <div class="section-heading">
+              <p class="section-kicker">Community</p>
+              <h2>Social mode</h2>
+            </div>
+            <p id="social-status" class="setup-status">
+              Comments work locally right away and can be shared with a free Supabase setup.
+            </p>
+            <div class="chip-list">
+              <span class="chip">Local profile</span>
+              <span class="chip">Local comments</span>
+              <span class="chip">Optional shared comments</span>
+            </div>
+          </article>
+        </section>
+
+        <section class="auth-grid">
+          <article class="panel auth-panel">
+            <div class="section-heading">
+              <p class="section-kicker">Account</p>
+              <h2>Sign in securely</h2>
+              <h2>Sign in</h2>
+            </div>
+
+            <p id="auth-status" class="setup-status">
+              Create an account with your email, a display username, and a strong password.
+              Use your email and password.
+            </p>
+
+            <div id="auth-signed-out">
+                  <strong id="auth-username-display">Signed in</strong>
+                  <p id="auth-email-display"></p>
+                </div>
+              </div>
+              <div class="chip-list">
+                <span class="chip">Email confirmation supported</span>
+                <span class="chip">Reset password supported</span>
+              </div>
+              <button id="signout-button" class="secondary-button" type="button">Sign out</button>
+            </div>
+          </article>
+        </section>
+
+        <section class="quality-grid">
+          <article class="panel comfort-panel">
+            <div class="section-heading">
+              <p class="section-kicker">Comfort</p>
+              <h2>User-friendly controls</h2>
+            </div>
+            <p class="setup-status">
+              Adjust motion and contrast, or jump back into search with a keyboard shortcut.
+            </p>
+            <div class="chip-list" id="comfort-status"></div>
+            <div class="quality-actions">
+              <button id="focus-search-button" class="secondary-button" type="button">
+                Focus active search
+              </button>
+            </div>
+            <p class="comment-meta">
+              Tip: press <kbd>/</kbd> anywhere outside a form field to focus the active search bar.
+            </p>
+          </article>
+
+          <article class="panel quality-panel">
+            <div class="section-heading">
+              <p class="section-kicker">Quality</p>
+              <h2>Health and backup</h2>
+            </div>
+            <div id="quality-summary" class="chip-list"></div>
+            <div id="health-checks" class="health-list"></div>
+            <div class="quality-actions">
+              <button id="run-self-check-button" class="secondary-button" type="button">
+                Run self-check
+              </button>
+              <button id="export-data-button" class="secondary-button" type="button">
+                Export my data
+              </button>
+              <button id="reset-local-button" class="secondary-button danger-button" type="button">
+                Reset local data
+              </button>
+            </div>
+          </article>
+        </section>
+
+        <section class="tabs" aria-label="Media categories">
+          <div class="search-panel panel">
+            <div class="search-copy">
+              <p class="section-kicker">Manga search</p>
+              <h2>Search by series title</h2>
+              <p>
+                Search once, then narrow by genre, score, and era for a cleaner discovery flow.
+              </p>
+              <h2>Manga</h2>
+            </div>
+
+            <div class="search-controls">
+                  <input
+                    id="manga-search-input"
+                    type="search"
+                    placeholder="Search manga series like One Piece or Berserk"
+                    placeholder="Search manga"
+                    autocomplete="off"
+                  />
+                  <div id="manga-suggestions" class="suggestions-panel hidden"></div>
+                </div>
+                <button id="manga-search-button" class="primary-button" type="button">Search</button>
+              </div>
+
+              <div class="toolbar-row">
+                <label class="select-wrap">
+                  <span>Sort</span>
+                  <select id="manga-sort-select">
+                    <option value="relevance">Best match</option>
+                    <option value="title">Title A-Z</option>
+                    <option value="year">Newest year</option>
+                    <option value="score">Highest score</option>
+                    <option value="votes">Most votes</option>
+                    <option value="personal">For you</option>
+                  </select>
+                </label>
+
+                <button
+                  id="manga-favorites-toggle"
+                  class="filter-toggle"
+                  type="button"
+                  aria-pressed="false"
+                >
+                  Favorites only
+                </button>
+              </div>
+
+              <div class="filter-grid">
+                <label class="select-wrap">
+                  <span>Min score</span>
+                  <select id="manga-score-select">
+                    <option value="0">Any score</option>
+                    <option value="7">7.0+</option>
+                    <option value="8">8.0+</option>
+                    <option value="9">9.0+</option>
+                  </select>
+                </label>
+
+                <label class="select-wrap">
+                  <span>Era</span>
+                  <select id="manga-era-select">
+                    <option value="all">Any era</option>
+                    <option value="2020s">2020s</option>
+                    <option value="2010s">2010s</option>
+                    <option value="2000s">2000s</option>
+                    <option value="classic">Classic</option>
+                  </select>
+                </label>
+              </div>
+
+              <div class="chip-block compact-block">
+                <div class="block-head">
+                  <strong>Genres</strong>
+                  <button id="clear-manga-genre" class="inline-button" type="button">
+                    Reset
+                  </button>
+                </div>
+                <div id="manga-genre-chips" class="chip-list"></div>
+              </div>
+
+              <div class="chip-block compact-block">
+                <div class="block-head">
+                  <strong>Quick search</strong>
+                </div>
+                <div id="manga-recent-searches" class="chip-list"></div>
+              </div>
+
+              <p id="manga-search-status" class="status-row" aria-live="polite">
+                Start typing to search manga.
+              </p>
+          <div class="search-panel panel">
+            <div class="search-copy">
+              <p class="section-kicker">Movie search</p>
+              <h2>Search TMDb movies</h2>
+              <p>
+                Movie search uses TMDb. Add a free read access token in <code>config.js</code> to enable it.
+              </p>
+              <h2>Movies</h2>
+            </div>
+
+            <div class="search-controls">
+                  <input
+                    id="movie-search-input"
+                    type="search"
+                    placeholder="Search movies like Dune or Spider-Man"
+                    placeholder="Search movies"
+                    autocomplete="off"
+                  />
+                  <div id="movie-suggestions" class="suggestions-panel hidden"></div>
+                </div>
+                <button id="movie-search-button" class="primary-button" type="button">Search</button>
+              </div>
+
+              <div class="toolbar-row">
+                <label class="select-wrap">
+                  <span>Sort</span>
+                  <select id="movie-sort-select">
+                    <option value="relevance">Best match</option>
+                    <option value="title">Title A-Z</option>
+                    <option value="year">Newest year</option>
+                    <option value="score">Highest score</option>
+                    <option value="votes">Most votes</option>
+                    <option value="personal">For you</option>
+                  </select>
+                </label>
+
+                <button
+                  id="movie-favorites-toggle"
+                  class="filter-toggle"
+                  type="button"
+                  aria-pressed="false"
+                >
+                  Favorites only
+                </button>
+              </div>
+
+              <div class="filter-grid">
+                <label class="select-wrap">
+                  <span>Min score</span>
+                  <select id="movie-score-select">
+                    <option value="0">Any score</option>
+                    <option value="6">6.0+</option>
+                    <option value="7">7.0+</option>
+                    <option value="8">8.0+</option>
+                  </select>
+                </label>
+
+                <label class="select-wrap">
+                  <span>Era</span>
+                  <select id="movie-era-select">
+                    <option value="all">Any era</option>
+                    <option value="2020s">2020s</option>
+                    <option value="2010s">2010s</option>
+                    <option value="2000s">2000s</option>
+                    <option value="classic">Classic</option>
+                  </select>
+                </label>
+              </div>
+
+              <div class="chip-block compact-block">
+                <div class="block-head">
+                  <strong>Genres</strong>
+                  <button id="clear-movie-genre" class="inline-button" type="button">
+                    Reset
+                  </button>
+                </div>
+                <div id="movie-genre-chips" class="chip-list"></div>
+              </div>
+
+              <div class="chip-block compact-block">
+                <div class="block-head">
+                  <strong>Quick search</strong>
+                </div>
+                <div id="movie-recent-searches" class="chip-list"></div>
+              </div>
+
+              <p id="movie-search-status" class="status-row" aria-live="polite">
