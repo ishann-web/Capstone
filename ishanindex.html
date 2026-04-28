@@ -1,7 +1,24 @@
-<div class="page-shell">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2d6640" />
+    <title>Media Voting Platform</title>
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Work+Sans:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div class="page-shell">
       <header class="hero">
         <div class="hero-topbar">
-          <p class="eyebrow">Phase 5 Quality Upgrade</p>
           <p class="eyebrow">Media Voting</p>
           <div class="hero-actions">
             <span id="backend-pill" class="pill">Local votes</span>
@@ -9,41 +26,18 @@
             <button id="theme-toggle" class="ghost-button" type="button" aria-pressed="false">
               Dark mode
             </button>
-            <button id="motion-toggle" class="ghost-button" type="button" aria-pressed="false">
-              Reduce motion
-            </button>
-            <button id="contrast-toggle" class="ghost-button" type="button" aria-pressed="false">
-              High contrast
-            </button>
           </div>
         </div>
 
         <div class="hero-grid">
           <div>
-            <h1>Make the platform feel smarter, not heavier.</h1>
-            <p class="hero-copy">
-              Phase 5 hardens the experience with accessibility upgrades, safer community tools,
-              local analytics, and simple reliability checks so the app feels better to use every day.
-            </p>
-            <div class="hero-badges">
-              <span>Accessibility</span>
-              <span>Moderation</span>
-              <span>Health Checks</span>
-              <span>Data Export</span>
-              <span>Free Only</span>
-            </div>
             <h1>Search. Vote. Rank.</h1>
             <p class="hero-copy">Find manga and movies, vote once, and watch the leaderboard update.</p>
           </div>
 
           <aside class="hero-note">
-            <h2>What users get in Phase 5</h2>
             <h2>Simple by design</h2>
             <ul>
-              <li>Comfort controls for motion and contrast plus keyboard-friendly navigation.</li>
-              <li>Safer comments with local moderation checks and reporting tools.</li>
-              <li>A quality dashboard that explains app status, usage, and free-mode health.</li>
-              <li>Backup and reset tools so users stay in control of their own data.</li>
               <li>Fast search.</li>
               <li>One-click voting.</li>
               <li>A live leaderboard.</li>
@@ -53,136 +47,41 @@
       </header>
 
       <main id="main-content" class="app-shell">
-        <section class="overview-grid">
         <section>
           <article class="panel spotlight">
             <div class="section-heading">
               <p class="section-kicker">Leaderboard</p>
-              <h2>Top voted picks</h2>
               <h2>Top picks</h2>
             </div>
 
             <div class="leaderboard-filters" role="tablist" aria-label="Leaderboard filter">
-
-            <div id="leaderboard" class="leaderboard-list"></div>
-          </article>
-
-          <article class="panel utility-panel">
-            <div class="section-heading">
-              <p class="section-kicker">Your space</p>
-              <h2>Profile and quick actions</h2>
-            </div>
-
-            <div class="profile-card">
-              <div class="profile-avatar" id="profile-avatar">MV</div>
-              <div class="profile-copy">
-                <strong id="profile-name-display">Guest User</strong>
-                <p id="profile-bio-display">Set a name and short vibe for your profile.</p>
-              </div>
-            </div>
-
-            <div class="profile-form">
-              <label class="input-stack">
-                <span>Display name</span>
-                <input id="profile-name-input" type="text" maxlength="24" placeholder="Guest User" />
-              </label>
-              <label class="input-stack">
-                <span>Short bio</span>
-                <input id="profile-bio-input" type="text" maxlength="80" placeholder="Movie lover, manga reader, ranking chaos agent..." />
-              </label>
-              <button id="save-profile-button" class="secondary-button" type="button">
-                Save profile
+              <button class="filter-chip active" type="button" data-leaderboard-filter="all">
+                All
+              </button>
+              <button class="filter-chip" type="button" data-leaderboard-filter="manga">
+                Manga
+              </button>
+              <button class="filter-chip" type="button" data-leaderboard-filter="movie">
+                Movies
               </button>
             </div>
 
-            <div class="quick-stats">
-              <article class="stat-card">
-                <span class="stat-label">Favorites</span>
-                <strong id="favorites-count">0</strong>
-              </article>
-              <article class="stat-card">
-                <span class="stat-label">Recent searches</span>
-                <strong id="recent-count">0</strong>
-              </article>
-              <article class="stat-card">
-                <span class="stat-label">Comments</span>
-                <strong id="comments-count">0</strong>
-              </article>
+            <div class="leaderboard-modes" role="tablist" aria-label="Leaderboard mode">
+              <button class="mode-chip active" type="button" data-leaderboard-mode="votes">
+                Most voted
+              </button>
+              <button class="mode-chip" type="button" data-leaderboard-mode="hot">
+                Hot now
+              </button>
+              <button class="mode-chip" type="button" data-leaderboard-mode="newest">
+                Newest
+              </button>
+              <button class="mode-chip" type="button" data-leaderboard-mode="personal">
+                For you
+              </button>
             </div>
 
-            <div class="chip-block">
-              <div class="block-head">
-                <strong>Discovery snapshot</strong>
-              </div>
-              <div id="discovery-highlights" class="chip-list"></div>
-            </div>
-
-            <div class="chip-block">
-              <div class="block-head">
-                <strong>Recent searches</strong>
-                <button id="clear-recent-searches" class="inline-button" type="button">
-                  Clear
-                </button>
-              </div>
-              <div id="recent-searches-global" class="chip-list"></div>
-            </div>
-
-            <div class="chip-block">
-              <div class="block-head">
-                <strong>Favorites</strong>
-                <button id="view-favorites-button" class="inline-button" type="button">
-                  Jump to favorites
-                </button>
-              </div>
-              <div id="favorites-preview" class="chip-list"></div>
-            </div>
-
-            <p id="setup-status" class="setup-status">
-              Movie search and shared votes activate automatically when free credentials are present.
-            </p>
-          </article>
-        </section>
-
-        <section class="personalization-grid">
-          <article class="panel taste-panel">
-            <div class="section-heading">
-              <p class="section-kicker">Taste profile</p>
-              <h2>Your strongest signals</h2>
-            </div>
-            <div id="taste-summary" class="chip-list"></div>
-          </article>
-
-          <article class="panel recommend-panel">
-            <div class="section-heading">
-              <p class="section-kicker">Recommendations</p>
-              <h2>Because you liked...</h2>
-            </div>
-            <div id="recommendation-chips" class="chip-list"></div>
-          </article>
-        </section>
-
-        <section class="social-grid">
-          <article class="panel activity-panel">
-            <div class="section-heading">
-              <p class="section-kicker">Activity</p>
-              <h2>Your feed</h2>
-            </div>
-            <div id="activity-feed" class="activity-feed"></div>
-          </article>
-
-          <article class="panel social-status-panel">
-            <div class="section-heading">
-              <p class="section-kicker">Community</p>
-              <h2>Social mode</h2>
-            </div>
-            <p id="social-status" class="setup-status">
-              Comments work locally right away and can be shared with a free Supabase setup.
-            </p>
-            <div class="chip-list">
-              <span class="chip">Local profile</span>
-              <span class="chip">Local comments</span>
-              <span class="chip">Optional shared comments</span>
-            </div>
+            <div id="leaderboard" class="leaderboard-list"></div>
           </article>
         </section>
 
@@ -190,86 +89,126 @@
           <article class="panel auth-panel">
             <div class="section-heading">
               <p class="section-kicker">Account</p>
-              <h2>Sign in securely</h2>
               <h2>Sign in</h2>
             </div>
 
             <p id="auth-status" class="setup-status">
-              Create an account with your email, a display username, and a strong password.
               Use your email and password.
             </p>
 
             <div id="auth-signed-out">
+              <div class="leaderboard-modes" role="tablist" aria-label="Account actions">
+                <button class="mode-chip active" type="button" data-auth-view="signin">
+                  Sign in
+                </button>
+                <button class="mode-chip" type="button" data-auth-view="signup">
+                  Create account
+                </button>
+                <button class="mode-chip" type="button" data-auth-view="reset">
+                  Forgot password
+                </button>
+              </div>
+
+              <div class="auth-view active" data-auth-panel="signin">
+                <div class="profile-form">
+                  <label class="input-stack">
+                    <span>Email</span>
+                    <input id="signin-email" type="email" autocomplete="email" />
+                  </label>
+                  <label class="input-stack">
+                    <span>Password</span>
+                    <input id="signin-password" type="password" autocomplete="current-password" />
+                  </label>
+                  <button id="signin-button" class="primary-button" type="button">Sign in</button>
+                </div>
+              </div>
+
+              <div class="auth-view" data-auth-panel="signup">
+                <div class="profile-form">
+                  <label class="input-stack">
+                    <span>Email</span>
+                    <input id="signup-email" type="email" autocomplete="email" />
+                  </label>
+                  <label class="input-stack">
+                    <span>Username</span>
+                    <input id="signup-username" type="text" maxlength="20" autocomplete="username" />
+                  </label>
+                  <label class="input-stack">
+                    <span>Password</span>
+                    <input id="signup-password" type="password" autocomplete="new-password" />
+                  </label>
+                  <label class="input-stack">
+                    <span>Confirm password</span>
+                    <input id="signup-password-confirm" type="password" autocomplete="new-password" />
+                  </label>
+                  <p class="comment-meta">
+                    Use at least 12 characters with uppercase, lowercase, a number, and a symbol.
+                  </p>
+                  <button id="signup-button" class="primary-button" type="button">Create account</button>
+                </div>
+              </div>
+
+              <div class="auth-view" data-auth-panel="reset">
+                <div class="profile-form">
+                  <label class="input-stack">
+                    <span>Email</span>
+                    <input id="reset-email" type="email" autocomplete="email" />
+                  </label>
+                  <button id="reset-request-button" class="primary-button" type="button">
+                    Send reset email
+                  </button>
+                </div>
+              </div>
+
+              <div id="password-recovery-panel" class="auth-view">
+                <div class="profile-form">
+                  <label class="input-stack">
+                    <span>New password</span>
+                    <input id="recovery-password" type="password" autocomplete="new-password" />
+                  </label>
+                  <label class="input-stack">
+                    <span>Confirm new password</span>
+                    <input id="recovery-password-confirm" type="password" autocomplete="new-password" />
+                  </label>
+                  <button id="recovery-button" class="primary-button" type="button">
+                    Update password
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div id="auth-signed-in" class="auth-account hidden">
+              <div class="profile-card">
+                <div class="profile-avatar" id="auth-avatar">AU</div>
+                <div class="profile-copy">
                   <strong id="auth-username-display">Signed in</strong>
                   <p id="auth-email-display"></p>
                 </div>
-              </div>
-              <div class="chip-list">
-                <span class="chip">Email confirmation supported</span>
-                <span class="chip">Reset password supported</span>
               </div>
               <button id="signout-button" class="secondary-button" type="button">Sign out</button>
             </div>
           </article>
         </section>
 
-        <section class="quality-grid">
-          <article class="panel comfort-panel">
-            <div class="section-heading">
-              <p class="section-kicker">Comfort</p>
-              <h2>User-friendly controls</h2>
-            </div>
-            <p class="setup-status">
-              Adjust motion and contrast, or jump back into search with a keyboard shortcut.
-            </p>
-            <div class="chip-list" id="comfort-status"></div>
-            <div class="quality-actions">
-              <button id="focus-search-button" class="secondary-button" type="button">
-                Focus active search
-              </button>
-            </div>
-            <p class="comment-meta">
-              Tip: press <kbd>/</kbd> anywhere outside a form field to focus the active search bar.
-            </p>
-          </article>
-
-          <article class="panel quality-panel">
-            <div class="section-heading">
-              <p class="section-kicker">Quality</p>
-              <h2>Health and backup</h2>
-            </div>
-            <div id="quality-summary" class="chip-list"></div>
-            <div id="health-checks" class="health-list"></div>
-            <div class="quality-actions">
-              <button id="run-self-check-button" class="secondary-button" type="button">
-                Run self-check
-              </button>
-              <button id="export-data-button" class="secondary-button" type="button">
-                Export my data
-              </button>
-              <button id="reset-local-button" class="secondary-button danger-button" type="button">
-                Reset local data
-              </button>
-            </div>
-          </article>
+        <section class="tabs" aria-label="Media categories">
+          <button class="tab-button active" type="button" data-tab="manga">Manga</button>
+          <button class="tab-button" type="button" data-tab="movies">Movies</button>
         </section>
 
-        <section class="tabs" aria-label="Media categories">
+        <section class="tab-view active" id="manga-tab">
           <div class="search-panel panel">
             <div class="search-copy">
               <p class="section-kicker">Manga search</p>
-              <h2>Search by series title</h2>
-              <p>
-                Search once, then narrow by genre, score, and era for a cleaner discovery flow.
-              </p>
               <h2>Manga</h2>
             </div>
 
             <div class="search-controls">
+              <label class="sr-only" for="manga-search-input">Search manga</label>
+              <div class="search-row">
+                <div class="search-field">
                   <input
                     id="manga-search-input"
                     type="search"
-                    placeholder="Search manga series like One Piece or Berserk"
                     placeholder="Search manga"
                     autocomplete="off"
                   />
@@ -278,87 +217,35 @@
                 <button id="manga-search-button" class="primary-button" type="button">Search</button>
               </div>
 
-              <div class="toolbar-row">
-                <label class="select-wrap">
-                  <span>Sort</span>
-                  <select id="manga-sort-select">
-                    <option value="relevance">Best match</option>
-                    <option value="title">Title A-Z</option>
-                    <option value="year">Newest year</option>
-                    <option value="score">Highest score</option>
-                    <option value="votes">Most votes</option>
-                    <option value="personal">For you</option>
-                  </select>
-                </label>
-
-                <button
-                  id="manga-favorites-toggle"
-                  class="filter-toggle"
-                  type="button"
-                  aria-pressed="false"
-                >
-                  Favorites only
-                </button>
-              </div>
-
-              <div class="filter-grid">
-                <label class="select-wrap">
-                  <span>Min score</span>
-                  <select id="manga-score-select">
-                    <option value="0">Any score</option>
-                    <option value="7">7.0+</option>
-                    <option value="8">8.0+</option>
-                    <option value="9">9.0+</option>
-                  </select>
-                </label>
-
-                <label class="select-wrap">
-                  <span>Era</span>
-                  <select id="manga-era-select">
-                    <option value="all">Any era</option>
-                    <option value="2020s">2020s</option>
-                    <option value="2010s">2010s</option>
-                    <option value="2000s">2000s</option>
-                    <option value="classic">Classic</option>
-                  </select>
-                </label>
-              </div>
-
-              <div class="chip-block compact-block">
-                <div class="block-head">
-                  <strong>Genres</strong>
-                  <button id="clear-manga-genre" class="inline-button" type="button">
-                    Reset
-                  </button>
-                </div>
-                <div id="manga-genre-chips" class="chip-list"></div>
-              </div>
-
-              <div class="chip-block compact-block">
-                <div class="block-head">
-                  <strong>Quick search</strong>
-                </div>
-                <div id="manga-recent-searches" class="chip-list"></div>
-              </div>
-
               <p id="manga-search-status" class="status-row" aria-live="polite">
                 Start typing to search manga.
               </p>
+            </div>
+          </div>
+
+          <section class="results-section">
+            <div class="section-heading">
+              <p class="section-kicker">Results</p>
+              <h2>Manga series</h2>
+            </div>
+            <div id="manga-results" class="results-grid"></div>
+          </section>
+        </section>
+
+        <section class="tab-view" id="movies-tab">
           <div class="search-panel panel">
             <div class="search-copy">
               <p class="section-kicker">Movie search</p>
-              <h2>Search TMDb movies</h2>
-              <p>
-                Movie search uses TMDb. Add a free read access token in <code>config.js</code> to enable it.
-              </p>
               <h2>Movies</h2>
             </div>
 
             <div class="search-controls">
+              <label class="sr-only" for="movie-search-input">Search movies</label>
+              <div class="search-row">
+                <div class="search-field">
                   <input
                     id="movie-search-input"
                     type="search"
-                    placeholder="Search movies like Dune or Spider-Man"
                     placeholder="Search movies"
                     autocomplete="off"
                   />
@@ -367,67 +254,123 @@
                 <button id="movie-search-button" class="primary-button" type="button">Search</button>
               </div>
 
-              <div class="toolbar-row">
-                <label class="select-wrap">
-                  <span>Sort</span>
-                  <select id="movie-sort-select">
-                    <option value="relevance">Best match</option>
-                    <option value="title">Title A-Z</option>
-                    <option value="year">Newest year</option>
-                    <option value="score">Highest score</option>
-                    <option value="votes">Most votes</option>
-                    <option value="personal">For you</option>
-                  </select>
-                </label>
+              <p id="movie-search-status" class="status-row" aria-live="polite">
+                Add a free TMDb token in config.js to enable movie search.
+              </p>
+            </div>
+          </div>
 
-                <button
-                  id="movie-favorites-toggle"
-                  class="filter-toggle"
-                  type="button"
-                  aria-pressed="false"
-                >
-                  Favorites only
-                </button>
+          <section class="results-section">
+            <div class="section-heading">
+              <p class="section-kicker">Results</p>
+              <h2>Movies</h2>
+            </div>
+            <div id="movie-results" class="results-grid"></div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <template id="result-card-template">
+      <article class="media-card">
+        <div class="media-image-wrap">
+          <img class="media-image" alt="" loading="lazy" />
+          <button class="favorite-button" type="button" aria-pressed="false">Save</button>
+        </div>
+        <div class="media-content">
+          <div class="media-head">
+            <p class="media-type"></p>
+            <span class="media-score"></span>
+          </div>
+          <h3 class="media-title"></h3>
+          <p class="media-meta"></p>
+          <div class="media-tags"></div>
+          <p class="media-summary"></p>
+          <div class="media-actions">
+            <button class="secondary-button details-button" type="button">Details</button>
+            <button class="secondary-button share-button" type="button">Share</button>
+          </div>
+          <div class="media-footer">
+            <span class="vote-count"></span>
+            <button class="vote-button" type="button">Vote</button>
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <dialog id="details-modal" class="details-modal">
+      <div class="modal-shell">
+        <button id="modal-close" class="modal-close" type="button" aria-label="Close details">
+          Close
+        </button>
+        <div class="modal-grid">
+          <div class="modal-image-wrap">
+            <img id="modal-image" class="modal-image" alt="" />
+          </div>
+          <div class="modal-content">
+            <p id="modal-type" class="section-kicker"></p>
+            <h2 id="modal-title"></h2>
+            <p id="modal-meta" class="modal-meta"></p>
+            <div id="modal-tags" class="chip-list"></div>
+            <div id="modal-stats" class="modal-stats"></div>
+            <div id="modal-reasons" class="chip-list"></div>
+            <p id="modal-summary" class="modal-summary"></p>
+            <div class="modal-actions">
+              <button id="modal-favorite" class="secondary-button" type="button">Save</button>
+              <button id="modal-share" class="secondary-button" type="button">Share</button>
+            </div>
+
+            <section class="comments-section">
+              <div class="section-heading section-heading-compact">
+                <p class="section-kicker">Comments</p>
+                <h2>Discussion</h2>
               </div>
-
-              <div class="filter-grid">
-                <label class="select-wrap">
-                  <span>Min score</span>
-                  <select id="movie-score-select">
-                    <option value="0">Any score</option>
-                    <option value="6">6.0+</option>
-                    <option value="7">7.0+</option>
-                    <option value="8">8.0+</option>
-                  </select>
-                </label>
-
-                <label class="select-wrap">
-                  <span>Era</span>
-                  <select id="movie-era-select">
-                    <option value="all">Any era</option>
-                    <option value="2020s">2020s</option>
-                    <option value="2010s">2010s</option>
-                    <option value="2000s">2000s</option>
-                    <option value="classic">Classic</option>
-                  </select>
-                </label>
+              <div class="chip-list">
+                <span class="chip">Be respectful</span>
+                <span class="chip">No harassment</span>
+                <span class="chip">No spam</span>
               </div>
-
-              <div class="chip-block compact-block">
-                <div class="block-head">
-                  <strong>Genres</strong>
-                  <button id="clear-movie-genre" class="inline-button" type="button">
-                    Reset
+              <div id="comments-list" class="comments-list"></div>
+              <div class="comment-form">
+                <textarea
+                  id="comment-input"
+                  rows="3"
+                  maxlength="280"
+                  placeholder="Leave a comment about this title..."
+                ></textarea>
+                <div class="comment-actions">
+                  <span id="comment-status" class="status-row">Share your take.</span>
+                  <button id="submit-comment-button" class="primary-button" type="button">
+                    Post comment
                   </button>
                 </div>
-                <div id="movie-genre-chips" class="chip-list"></div>
               </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </dialog>
 
-              <div class="chip-block compact-block">
-                <div class="block-head">
-                  <strong>Quick search</strong>
-                </div>
-                <div id="movie-recent-searches" class="chip-list"></div>
-              </div>
+    <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+    <div id="app-announcer" class="sr-only" aria-live="assertive" aria-atomic="true"></div>
 
-              <p id="movie-search-status" class="status-row" aria-live="polite">
+    <script src="./config.js"></script>
+    <script>
+      (function loadOptionalLocalConfig() {
+        var localConfig = document.createElement("script");
+        localConfig.src = "./config.local.js";
+        localConfig.defer = true;
+        localConfig.onerror = function () {};
+        localConfig.onload = function () {
+          window.dispatchEvent(new Event("media-config-ready"));
+        };
+        document.head.appendChild(localConfig);
+        window.setTimeout(function () {
+          window.dispatchEvent(new Event("media-config-ready"));
+        }, 0);
+      })();
+    </script>
+    <script type="module" src="./auth.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
