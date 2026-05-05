@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2d6640" />
+    <title>Media Voting Platform</title>
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Work+Sans:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-topbar">
+          <p class="eyebrow">Phase 1 Experience Upgrade</p>
+          <div class="hero-actions">
+            <span id="backend-pill" class="pill">Local votes</span>
+            <span id="install-pill" class="pill muted-pill">Web app ready</span>
+            <button id="theme-toggle" class="ghost-button" type="button" aria-pressed="false">
+              Dark mode
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-grid">
+          <div>
+            <h1>Search, save, vote, and explore media with less friction.</h1>
+            <p class="hero-copy">
+              Phase 1 focuses on the user experience: faster discovery, recent searches,
+              favorites, richer details, and a smoother path from curiosity to voting.
+            </p>
+            <div class="hero-badges">
+              <span>Autocomplete</span>
+              <span>Recent Searches</span>
+              <span>Favorites</span>
+              <span>Details Modal</span>
+              <span>PWA Ready</span>
+            </div>
+          </div>
+
+          <aside class="hero-note">
+            <h2>What users get in Phase 1</h2>
+            <ul>
+              <li>Search suggestions and recent search chips for quicker discovery.</li>
+              <li>Sorting, favorites-only filtering, and easier result browsing.</li>
+              <li>Details modal with overview text, metadata, and quick actions.</li>
+              <li>Shareable search state, toast feedback, and offline-ready shell support.</li>
+            </ul>
+          </aside>
+        </div>
+      </header>
+
+      <main class="app-shell">
+        <section class="overview-grid">
+          <article class="panel spotlight">
+            <div class="section-heading">
+              <p class="section-kicker">Leaderboard</p>
+              <h2>Top voted picks</h2>
+            </div>
+
+            <div class="leaderboard-filters" role="tablist" aria-label="Leaderboard filter">
+              <button class="filter-chip active" type="button" data-leaderboard-filter="all">
+                All
+              </button>
+              <button class="filter-chip" type="button" data-leaderboard-filter="manga">
+                Manga
+              </button>
+              <button class="filter-chip" type="button" data-leaderboard-filter="movie">
+                Movies
+              </button>
+            </div>
+
+            <div id="leaderboard" class="leaderboard-list"></div>
+          </article>
+
+          <article class="panel utility-panel">
+            <div class="section-heading">
+              <p class="section-kicker">Your space</p>
+              <h2>Quick actions</h2>
+            </div>
+
+            <div class="quick-stats">
+              <article class="stat-card">
+                <span class="stat-label">Favorites</span>
+                <strong id="favorites-count">0</strong>
+              </article>
+              <article class="stat-card">
+                <span class="stat-label">Recent searches</span>
+                <strong id="recent-count">0</strong>
+              </article>
+              <article class="stat-card">
+                <span class="stat-label">Votes saved</span>
+                <strong id="votes-count">0</strong>
+              </article>
+            </div>
+
+            <div class="chip-block">
+              <div class="block-head">
+                <strong>Recent searches</strong>
+                <button id="clear-recent-searches" class="inline-button" type="button">
+                  Clear
+                </button>
+              </div>
+              <div id="recent-searches-global" class="chip-list"></div>
+            </div>
+
+            <div class="chip-block">
+              <div class="block-head">
+                <strong>Favorites</strong>
+                <button id="view-favorites-button" class="inline-button" type="button">
+                  Jump to favorites
+                </button>
+              </div>
+              <div id="favorites-preview" class="chip-list"></div>
+            </div>
+
+            <p id="setup-status" class="setup-status">
+              Movie search and shared votes activate automatically when free credentials are present.
+            </p>
+          </article>
+        </section>
+
+        <section class="tabs" aria-label="Media categories">
+          <button class="tab-button active" type="button" data-tab="manga">Manga</button>
+          <button class="tab-button" type="button" data-tab="movies">Movies</button>
+        </section>
+
+        <section class="tab-view active" id="manga-tab">
+          <div class="search-panel panel">
+            <div class="search-copy">
+              <p class="section-kicker">Manga search</p>
+              <h2>Search by series title</h2>
+              <p>
+                Search once, then sort, save, and inspect series in a cleaner browsing flow.
+              </p>
+            </div>
+
+            <div class="search-controls">
+              <label class="sr-only" for="manga-search-input">Search manga</label>
+              <div class="search-row">
+                <div class="search-field">
+                  <input
+                    id="manga-search-input"
+                    type="search"
+                    placeholder="Search manga series like One Piece or Berserk"
+                    autocomplete="off"
+                  />
+                  <div id="manga-suggestions" class="suggestions-panel hidden"></div>
+                </div>
+                <button id="manga-search-button" class="primary-button" type="button">Search</button>
+              </div>
+
+              <div class="toolbar-row">
+                <label class="select-wrap">
+                  <span>Sort</span>
+                  <select id="manga-sort-select">
+                    <option value="relevance">Best match</option>
+                    <option value="title">Title A-Z</option>
+                    <option value="year">Newest year</option>
+                    <option value="score">Highest score</option>
+                    <option value="votes">Most votes</option>
+                  </select>
+                </label>
+
+                <button
+                  id="manga-favorites-toggle"
+                  class="filter-toggle"
+                  type="button"
+                  aria-pressed="false"
+                >
+                  Favorites only
+                </button>
+              </div>
+
+              <div class="chip-block compact-block">
+                <div class="block-head">
+                  <strong>Quick search</strong>
+                </div>
+                <div id="manga-recent-searches" class="chip-list"></div>
+              </div>
+
+              <p id="manga-search-status" class="status-row" aria-live="polite">
+                Start typing to search manga.
+              </p>
+            </div>
+          </div>
+
+          <section class="results-section">
+            <div class="section-heading">
+              <p class="section-kicker">Results</p>
+              <h2>Manga series</h2>
+            </div>
+            <div id="manga-results" class="results-grid"></div>
+          </section>
+        </section>
+
+        <section class="tab-view" id="movies-tab">
+          <div class="search-panel panel">
+            <div class="search-copy">
+              <p class="section-kicker">Movie search</p>
+              <h2>Search TMDb movies</h2>
+              <p>
+                Movie search uses TMDb. Add a free read access token in <code>config.js</code> to enable it.
+              </p>
+            </div>
+
+            <div class="search-controls">
+              <label class="sr-only" for="movie-search-input">Search movies</label>
+              <div class="search-row">
+                <div class="search-field">
+                  <input
+                    id="movie-search-input"
+                    type="search"
+                    placeholder="Search movies like Dune or Spider-Man"
+                    autocomplete="off"
+                  />
+                  <div id="movie-suggestions" class="suggestions-panel hidden"></div>
+                </div>
+                <button id="movie-search-button" class="primary-button" type="button">Search</button>
+              </div>
+
+              <div class="toolbar-row">
+                <label class="select-wrap">
+                  <span>Sort</span>
+                  <select id="movie-sort-select">
+                    <option value="relevance">Best match</option>
+                    <option value="title">Title A-Z</option>
+                    <option value="year">Newest year</option>
+                    <option value="score">Highest score</option>
+                    <option value="votes">Most votes</option>
+                  </select>
+                </label>
+
+                <button
+                  id="movie-favorites-toggle"
+                  class="filter-toggle"
+                  type="button"
+                  aria-pressed="false"
+                >
+                  Favorites only
+                </button>
+              </div>
+
+              <div class="chip-block compact-block">
+                <div class="block-head">
+                  <strong>Quick search</strong>
+                </div>
+                <div id="movie-recent-searches" class="chip-list"></div>
+              </div>
+
+              <p id="movie-search-status" class="status-row" aria-live="polite">
+                Add a free TMDb token in config.js to enable movie search.
+              </p>
+            </div>
+          </div>
+
+          <section class="results-section">
+            <div class="section-heading">
+              <p class="section-kicker">Results</p>
+              <h2>Movies</h2>
+            </div>
+            <div id="movie-results" class="results-grid"></div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <template id="result-card-template">
+      <article class="media-card">
+        <div class="media-image-wrap">
+          <img class="media-image" alt="" loading="lazy" />
+          <button class="favorite-button" type="button" aria-pressed="false">Save</button>
+        </div>
+        <div class="media-content">
+          <div class="media-head">
+            <p class="media-type"></p>
+            <span class="media-score"></span>
+          </div>
+          <h3 class="media-title"></h3>
+          <p class="media-meta"></p>
+          <p class="media-summary"></p>
+          <div class="media-actions">
+            <button class="secondary-button details-button" type="button">Details</button>
+            <button class="secondary-button share-button" type="button">Share</button>
+          </div>
+          <div class="media-footer">
+            <span class="vote-count"></span>
+            <button class="vote-button" type="button">Vote</button>
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <dialog id="details-modal" class="details-modal">
+      <div class="modal-shell">
+        <button id="modal-close" class="modal-close" type="button" aria-label="Close details">
+          Close
+        </button>
+        <div class="modal-grid">
+          <div class="modal-image-wrap">
+            <img id="modal-image" class="modal-image" alt="" />
+          </div>
+          <div class="modal-content">
+            <p id="modal-type" class="section-kicker"></p>
+            <h2 id="modal-title"></h2>
+            <p id="modal-meta" class="modal-meta"></p>
+            <p id="modal-summary" class="modal-summary"></p>
+            <div class="modal-actions">
+              <button id="modal-favorite" class="secondary-button" type="button">Save</button>
+              <button id="modal-share" class="secondary-button" type="button">Share</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+
+    <script src="./config.js"></script>
+    <script>
+      (function loadOptionalLocalConfig() {
+        var localConfig = document.createElement("script");
+        localConfig.src = "./config.local.js";
+        localConfig.defer = true;
+        localConfig.onerror = function () {};
+        localConfig.onload = function () {
+          window.dispatchEvent(new Event("media-config-ready"));
+        };
+        document.head.appendChild(localConfig);
+        window.setTimeout(function () {
+          window.dispatchEvent(new Event("media-config-ready"));
+        }, 0);
+      })();
+    </script>
+    <script src="./script.js"></script>
+  </body>
+</html>

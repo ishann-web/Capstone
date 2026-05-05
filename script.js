@@ -1,4 +1,4 @@
-const JIKAN_URL = "https://api.jikan.moe/v4/manga";
+const JIKAN_URL = "https://api.jikan.moe/v4/manga";  //testing
 const TMDB_SEARCH_URL = "https://api.themoviedb.org/3/search/movie";
 const TMDB_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 const STORAGE_KEYS = {
@@ -63,8 +63,15 @@ function startApp() {
   }
 
   appStarted = true;
-  const appConfig = window.APP_CONFIG || {};
-
+  const appConfig = window.APP_CONFIG = {
+  tmdb: {
+    readAccessToken: "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlZDY1MmQzZDVlMDhlNmQwMWVhNTZmYzE2NjgxNzBlNiIsIm5iZiI6MTc3NzA0MTQwNS4yMjQsInN1YiI6IjY5ZWI3ZmZkYTkwYWJiZTNiYmRjNzZlNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.PSYMYb8NLTvhTUc4qBtp2tLOZXXpsHTRDHuXJHXoPjc"
+  },
+  supabase: {
+    url: "",
+    anonKey: ""
+  }
+};
   config = {
     tmdbToken: appConfig.tmdb?.readAccessToken?.trim() || "",
     supabaseUrl: trimTrailingSlash(appConfig.supabase?.url || ""),
@@ -302,40 +309,62 @@ async function fetchMovies(query, searchToken) {
 }
 
 function cleanMangaResults(items) {
+  const BLOCKED_GENRES = new Set([
+    "Hentai", "Erotica", "Ecchi", "Adult Cast", "Nudity",
+    "Sexual Content", "Explicit Sex"
+  ]);
+
   const grouped = new Map();
-  const preferredItems = items.filter((item) => item && ["Manga", "One-shot"].includes(item.type));
-  const sourceItems = preferredItems.length > 0 ? preferredItems : items.filter((item) => item && item.title);
 
-  sourceItems
-    .forEach((item) => {
-      const preferredTitle = item.title_english || item.title || "Untitled";
-      const seriesTitle = formatSeriesTitle(preferredTitle);
-      const seriesKey = slugify(seriesTitle);
+  const filtered = items.filter((item) => {
+    if (!item) return false;
 
-      if (!seriesKey) {
-        return;
-      }
+    // Block by Jikan rating field
+    const rating = (item.rating || "").toLowerCase();
+    if (rating.includes("rx") || rating.includes("hentai")) return false;
 
-      const candidate = {
-        id: String(item.mal_id),
-        mediaType: "manga",
-        seriesKey,
-        title: seriesTitle,
-        rawTitle: preferredTitle,
-        image:
-          item.images?.jpg?.large_image_url ||
-          item.images?.jpg?.image_url ||
-          "https://placehold.co/600x800/e4ecd9/27492d?text=Manga",
-        meta: buildMangaMeta(item),
-        scoreLabel: item.score ? `Score ${item.score}` : "Manga",
-        rankingScore: Number(item.score || 0) * 100000 + Number(item.members || 0),
-      };
+    // Block by genre/theme/demographic tags
+    const tags = [
+      ...(item.genres || []),
+      ...(item.themes || []),
+      ...(item.demographics || []),
+      ...(item.explicit_genres || []),
+    ];
+    if (tags.some((tag) => BLOCKED_GENRES.has(tag.name))) return false;
 
-      const existing = grouped.get(seriesKey);
-      if (!existing || candidate.rankingScore > existing.rankingScore) {
-        grouped.set(seriesKey, candidate);
-      }
-    });
+    return true;
+  });
+
+  const preferredItems = filtered.filter((item) => ["Manga", "One-shot"].includes(item.type));
+  const sourceItems = preferredItems.length > 0 ? preferredItems : filtered.filter((item) => item.title);
+
+  sourceItems.forEach((item) => {
+    const preferredTitle = item.title_english || item.title || "Untitled";
+    const seriesTitle = formatSeriesTitle(preferredTitle);
+    const seriesKey = slugify(seriesTitle);
+
+    if (!seriesKey) return;
+
+    const candidate = {
+      id: String(item.mal_id),
+      mediaType: "manga",
+      seriesKey,
+      title: seriesTitle,
+      rawTitle: preferredTitle,
+      image:
+        item.images?.jpg?.large_image_url ||
+        item.images?.jpg?.image_url ||
+        "https://placehold.co/600x800/e4ecd9/27492d?text=Manga",
+      meta: buildMangaMeta(item),
+      scoreLabel: item.score ? `Score ${item.score}` : "Manga",
+      rankingScore: Number(item.score || 0) * 100000 + Number(item.members || 0),
+    };
+
+    const existing = grouped.get(seriesKey);
+    if (!existing || candidate.rankingScore > existing.rankingScore) {
+      grouped.set(seriesKey, candidate);
+    }
+  });
 
   return [...grouped.values()].slice(0, 10);
 }
