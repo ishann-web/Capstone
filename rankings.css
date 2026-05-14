@@ -1,0 +1,9 @@
+{
+  "name": "Media Voting Platform",
+  "short_name": "MediaVote",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f4efdf",
+  "theme_color": "#2d6640",
+  "description": "Search, save, and vote on manga and movies in a lightweight media discovery app."
+}

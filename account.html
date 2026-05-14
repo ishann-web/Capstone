@@ -1,0 +1,346 @@
+:root {
+  --bg: #a9dfbf;
+  --bg-strong: #d8f1e1;
+  --panel: rgba(248, 255, 249, 0.86);
+  --panel-strong: rgba(242, 255, 246, 0.96);
+  --line: rgba(30, 86, 49, 0.16);
+  --text: #1e5631;
+  --muted: #2e8b57;
+  --accent: #228b22;
+  --accent-strong: #1e5631;
+  --accent-soft: rgba(169, 223, 191, 0.72);
+  --danger: #b14f44;
+  --shadow: 0 26px 64px rgba(30, 86, 49, 0.16);
+  --radius-lg: 30px;
+  --radius-md: 22px;
+  --radius-sm: 16px;
+}
+
+body.dark {
+  --bg: #153322;
+  --bg-strong: #1e5631;
+  --panel: rgba(22, 56, 35, 0.88);
+  --panel-strong: rgba(30, 86, 49, 0.94);
+  --line: rgba(169, 223, 191, 0.16);
+  --text: #eef9f2;
+  --muted: #b9e8c9;
+  --accent: #4caf50;
+  --accent-strong: #d8f1e1;
+  --accent-soft: rgba(76, 175, 80, 0.18);
+  --shadow: 0 28px 70px rgba(5, 22, 10, 0.36);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Work Sans", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 8% 12%, rgba(34, 139, 34, 0.22), transparent 20%),
+    radial-gradient(circle at 88% 10%, rgba(76, 175, 80, 0.24), transparent 24%),
+    radial-gradient(circle at 50% 100%, rgba(46, 139, 87, 0.18), transparent 32%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-strong) 100%);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.4;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(30, 86, 49, 0.08) 0 14%, transparent 15%),
+    radial-gradient(circle at 80% 25%, rgba(34, 139, 34, 0.07) 0 12%, transparent 13%);
+  background-size: 320px 320px, 260px 260px;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.account-shell {
+  width: min(1120px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 2rem 0 4rem;
+}
+
+.account-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.4rem;
+}
+
+.back-link {
+  display: inline-flex;
+  color: var(--accent-strong);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.theme-toggle {
+  min-width: 9rem;
+}
+
+.account-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1fr);
+  gap: 1.4rem;
+  align-items: start;
+}
+
+.account-aside,
+.account-card {
+  position: relative;
+  z-index: 1;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+}
+
+.account-aside {
+  padding: 1.8rem;
+  background:
+    linear-gradient(145deg, rgba(46, 139, 87, 0.12), rgba(169, 223, 191, 0.24)),
+    var(--panel);
+}
+
+.account-card {
+  padding: 1.8rem;
+}
+
+.eyebrow {
+  margin: 0;
+  font-family: "Space Grotesk", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+h1 {
+  margin: 0.45rem 0 0;
+  font-family: "Space Grotesk", sans-serif;
+  line-height: 0.98;
+  font-size: clamp(2.4rem, 6vw, 4.4rem);
+}
+
+.account-copy,
+.helper-copy,
+.status-row,
+#auth-email-display {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.strength-wrap {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.strength-bar {
+  width: 100%;
+  height: 0.6rem;
+  border-radius: 999px;
+  background: rgba(30, 86, 49, 0.12);
+  overflow: hidden;
+}
+
+.strength-fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #b14f44, #d9a441, #4caf50);
+  transition: width 180ms ease;
+}
+
+.feature-list,
+.account-switcher,
+.signed-in-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.feature-list {
+  margin-top: 1.5rem;
+}
+
+.feature-list span,
+.switch-chip,
+.primary-button,
+.secondary-button {
+  border-radius: 999px;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease,
+    opacity 180ms ease;
+}
+
+.feature-list span {
+  padding: 0.7rem 1rem;
+  background: rgba(242, 255, 246, 0.68);
+  border: 1px solid var(--line);
+}
+
+.account-switcher {
+  margin-bottom: 1rem;
+}
+
+.switch-chip,
+.secondary-button {
+  border: 1px solid var(--line);
+  background: rgba(242, 255, 246, 0.4);
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.switch-chip,
+.primary-button,
+.secondary-button {
+  padding: 0.9rem 1.15rem;
+  font-weight: 700;
+}
+
+.switch-chip.active,
+.primary-button {
+  background: linear-gradient(135deg, #228b22, #2e8b57);
+  color: #f8fdf9;
+  box-shadow: 0 12px 30px rgba(30, 86, 49, 0.18);
+  border-color: transparent;
+}
+
+.primary-button[disabled],
+.secondary-button[disabled] {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.switch-chip:hover,
+.primary-button:hover,
+.secondary-button:hover,
+.back-link:hover {
+  transform: translateY(-1px);
+}
+
+.auth-view {
+  display: none;
+}
+
+.auth-view.active {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
+
+.auth-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.input-stack {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.input-stack span {
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+
+.input-stack input {
+  width: 100%;
+  min-width: 0;
+  min-height: 3.45rem;
+  padding: 1rem 1.1rem;
+  border-radius: 18px;
+  border: 1px solid rgba(30, 86, 49, 0.16);
+  background: var(--panel-strong);
+  color: var(--text);
+  outline: none;
+}
+
+.input-stack input:focus {
+  border-color: rgba(34, 139, 34, 0.46);
+  box-shadow: 0 0 0 4px rgba(34, 139, 34, 0.12);
+}
+
+.status-row {
+  margin: 0 0 1rem;
+}
+
+.status-row.is-error,
+.banner {
+  color: var(--danger);
+}
+
+.banner {
+  margin-bottom: 1rem;
+  padding: 0.9rem 1rem;
+  border-radius: 16px;
+  border: 1px solid rgba(177, 79, 68, 0.28);
+  background: rgba(177, 79, 68, 0.08);
+}
+
+.banner.warning {
+  color: #7e5b11;
+  border-color: rgba(126, 91, 17, 0.24);
+  background: rgba(214, 181, 73, 0.14);
+}
+
+.profile-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.profile-avatar {
+  width: 4rem;
+  height: 4rem;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #228b22, #2e8b57);
+  color: #fff;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+}
+
+.signed-in-card {
+  display: grid;
+  gap: 1.2rem;
+}
+
+@media (max-width: 860px) {
+  .account-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .account-topbar,
+  .signed-in-actions,
+  .account-switcher {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .theme-toggle,
+  .primary-button,
+  .secondary-button,
+  .switch-chip {
+    width: 100%;
+  }
+}

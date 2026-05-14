@@ -1,0 +1,12 @@
+# OS / editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local server noise
+.vercel
+.netlify
+
+# Keep real credentials out of git if you choose to use a private local config
+config.local.js
+
